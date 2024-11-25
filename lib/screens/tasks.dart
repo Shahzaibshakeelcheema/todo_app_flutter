@@ -1,7 +1,7 @@
-//tasks.dart
-
 import 'package:flutter/material.dart';
+import 'package:todoapp/screens/add_task.dart';
 import 'package:todoapp/widgets/task_list.dart';
+
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
@@ -10,7 +10,21 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              isScrollControlled:
+                  true, // We used this to make the widgets appear above the keyboard but it will stretch to the top
+              context: context,
+              // We will wrap our add task screen with a container and singlechildscrollview so that the
+              // widgets above the keyboard not only stay above but also the bottom sheet does not strecthes itself to the top
+              builder: (context) => SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: const AddTaskScreen(),
+                    ),
+                  ));
+        },
         backgroundColor: Colors.lightGreenAccent.withOpacity(1),
         child: const Icon(Icons.add),
       ),
@@ -94,4 +108,3 @@ class TaskScreen extends StatelessWidget {
     );
   }
 }
-
